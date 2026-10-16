@@ -1,0 +1,78 @@
+{
+ "step": "5 CLIP 零样本 + 检索",
+ "model": "openai/clip-vit-base-patch32",
+ "split": "test",
+ "num_samples": 1172,
+ "embed_dim": 512,
+ "zero_shot": {
+  "基础": {
+   "accuracy": 0.5998293515358362,
+   "precision_macro": 0.6234655867822757,
+   "recall_macro": 0.597381313131313,
+   "f1_macro": 0.5868135632766414,
+   "num_classes": 100,
+   "num_samples": 1172,
+   "top5_accuracy": 0.9308873720136519
+  },
+  "加限定": {
+   "accuracy": 0.6203071672354948,
+   "precision_macro": 0.6391669137785758,
+   "recall_macro": 0.6185656565656565,
+   "f1_macro": 0.6031342502035877,
+   "num_classes": 100,
+   "num_samples": 1172,
+   "top5_accuracy": 0.9428327645051194
+  },
+  "加细节": {
+   "accuracy": 0.6143344709897611,
+   "precision_macro": 0.6326019665393907,
+   "recall_macro": 0.6111641414141414,
+   "f1_macro": 0.5970392581325408,
+   "num_classes": 100,
+   "num_samples": 1172,
+   "top5_accuracy": 0.9343003412969283
+  },
+  "多模板集成": {
+   "accuracy": 0.6092150170648464,
+   "precision_macro": 0.6298941129184601,
+   "recall_macro": 0.6056944444444444,
+   "f1_macro": 0.5906532029388316,
+   "num_classes": 100,
+   "num_samples": 1172,
+   "top5_accuracy": 0.9351535836177475
+  }
+ },
+ "zero_shot_best_template": "加限定",
+ "retrieval": {
+  "image_to_text_R@1": 0.034129692832764506,
+  "image_to_text_R@5": 0.1356655290102389,
+  "text_to_image_R@1": 0.016126279863481228,
+  "text_to_image_R@5": 0.05861774744027304,
+  "candidate_texts": 11720
+ },
+ "example_similarity": {
+  "true_class": "Black footed Albatross",
+  "top5": [
+   {
+    "class": "Black footed Albatross",
+    "similarity": 0.3384861648082733
+   },
+   {
+    "class": "Sooty Albatross",
+    "similarity": 0.3230867385864258
+   },
+   {
+    "class": "Pigeon Guillemot",
+    "similarity": 0.32299530506134033
+   },
+   {
+    "class": "Western Gull",
+    "similarity": 0.31562894582748413
+   },
+   {
+    "class": "Laysan Albatross",
+    "similarity": 0.3132811188697815
+   }
+  ]
+ }
+}

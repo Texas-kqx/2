@@ -1,0 +1,84 @@
+{
+ "Q1_image_shapes": {
+  "input": [
+   4,
+   3,
+   224,
+   224
+  ],
+  "feature_map": [
+   4,
+   512,
+   7,
+   7
+  ],
+  "flatten": [
+   4,
+   512,
+   49
+  ],
+  "tokens": [
+   4,
+   49,
+   512
+  ],
+  "pooled": [
+   4,
+   512
+  ]
+ },
+ "Q2_text_shapes": {
+  "vocab_size": 30522,
+  "hidden_size": 768,
+  "tokens": [
+   "[CLS]",
+   "a",
+   "small",
+   "blue",
+   "bird",
+   "[SEP]"
+  ],
+  "token_ids": [
+   101,
+   1037,
+   2235,
+   2630,
+   4743,
+   102
+  ],
+  "special_ids": {
+   "cls": 101,
+   "sep": 102,
+   "pad": 0,
+   "mask": 103,
+   "unk": 100
+  }
+ },
+ "Q3_pooling": {
+  "avg_real_tokens": 22.328125,
+  "pad_ratio": 0.651123046875,
+  "norm_mean_masked": 10.055253028869629,
+  "norm_mean_unmasked": 8.967646598815918,
+  "cos_masked_vs_unmasked": 0.8730803728103638,
+  "cos_cls_vs_mean": 0.43687620759010315
+ },
+ "Q4_modality_gap": {
+  "cross_mean": -0.026903847232460976,
+  "cross_std": 0.02678811177611351,
+  "random_mean": -7.932558065989257e-05,
+  "paired_mean": -0.027240555733442307,
+  "same_class_mean": -0.02653380110859871
+ },
+ "Q5_linear_probe": {
+  "image(512)": 0.497,
+  "text_cls(768)": 0.124,
+  "text_mean(768)": 0.179,
+  "text_mean_unmasked(768)": 0.177
+ },
+ "figures": {
+  "tsne_image_text": "D:\\deep seek\\实验二\\results\\figures\\step3_tsne_image_text.png",
+  "modality_gap": "D:\\deep seek\\实验二\\results\\figures\\step3_modality_gap.png",
+  "pooling_mask": "D:\\deep seek\\实验二\\results\\figures\\step3_pooling_mask.png"
+ },
+ "joint_tsne_pca_dim": 256
+}

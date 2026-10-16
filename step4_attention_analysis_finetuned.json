@@ -1,0 +1,204 @@
+{
+ "per_sample": [
+  {
+   "index": 0,
+   "caption": "the bird has head and beak proportional to its body and the bird is brown in color.",
+   "true_class": "001.Black_footed_Albatross",
+   "top_words": [
+    {
+     "token": "[CLS]",
+     "weight": 0.3708049952983856
+    },
+    {
+     "token": "[SEP]",
+     "weight": 0.10475866496562958
+    },
+    {
+     "token": ".",
+     "weight": 0.10376172512769699
+    },
+    {
+     "token": "bird",
+     "weight": 0.09457212686538696
+    },
+    {
+     "token": "its",
+     "weight": 0.07269888371229172
+    },
+    {
+     "token": "bird",
+     "weight": 0.06646586209535599
+    },
+    {
+     "token": "beak",
+     "weight": 0.059475719928741455
+    },
+    {
+     "token": "the",
+     "weight": 0.022806117311120033
+    }
+   ]
+  },
+  {
+   "index": 1,
+   "caption": "the bird has a long black bill that is somewhat curved.",
+   "true_class": "001.Black_footed_Albatross",
+   "top_words": [
+    {
+     "token": "[SEP]",
+     "weight": 0.15607722103595734
+    },
+    {
+     "token": "bird",
+     "weight": 0.15579193830490112
+    },
+    {
+     "token": "[CLS]",
+     "weight": 0.14532804489135742
+    },
+    {
+     "token": ".",
+     "weight": 0.1407647579908371
+    },
+    {
+     "token": "bill",
+     "weight": 0.08066827803850174
+    },
+    {
+     "token": "that",
+     "weight": 0.07741544395685196
+    },
+    {
+     "token": "is",
+     "weight": 0.06646496802568436
+    },
+    {
+     "token": "the",
+     "weight": 0.04193689301609993
+    }
+   ]
+  },
+  {
+   "index": 2,
+   "caption": "the wings are brown, long and narrow, and have white markings on the secondaries, the bill is blunt tipped and black, the head is light brown with a white thin marking between the eye and the beak.",
+   "true_class": "001.Black_footed_Albatross",
+   "top_words": [
+    {
+     "token": "[CLS]",
+     "weight": 0.16898787021636963
+    },
+    {
+     "token": "is",
+     "weight": 0.1650782972574234
+    },
+    {
+     "token": ",",
+     "weight": 0.12457440793514252
+    },
+    {
+     "token": "the",
+     "weight": 0.11940077692270279
+    },
+    {
+     "token": ".",
+     "weight": 0.05275580286979675
+    },
+    {
+     "token": "[SEP]",
+     "weight": 0.05127865448594093
+    },
+    {
+     "token": "and",
+     "weight": 0.032101817429065704
+    },
+    {
+     "token": "with",
+     "weight": 0.02962316945195198
+    }
+   ]
+  },
+  {
+   "index": 3,
+   "caption": "here we have a bird soaring above the water and it's color is dark brown, he seems to have a long dark colored bill with a white ring around it on the upper part near the bill.",
+   "true_class": "001.Black_footed_Albatross",
+   "top_words": [
+    {
+     "token": "[CLS]",
+     "weight": 0.27826857566833496
+    },
+    {
+     "token": "[SEP]",
+     "weight": 0.15683935582637787
+    },
+    {
+     "token": ".",
+     "weight": 0.11680478602647781
+    },
+    {
+     "token": "bird",
+     "weight": 0.10881885886192322
+    },
+    {
+     "token": "bill",
+     "weight": 0.062289703637361526
+    },
+    {
+     "token": "and",
+     "weight": 0.05228828266263008
+    },
+    {
+     "token": "bill",
+     "weight": 0.03547580540180206
+    },
+    {
+     "token": "it",
+     "weight": 0.03292964771389961
+    }
+   ]
+  },
+  {
+   "index": 4,
+   "caption": "the bird is brown with a crooked black beak and a large wingspan.",
+   "true_class": "001.Black_footed_Albatross",
+   "top_words": [
+    {
+     "token": "[CLS]",
+     "weight": 0.2846130132675171
+    },
+    {
+     "token": "bird",
+     "weight": 0.143635556101799
+    },
+    {
+     "token": "[SEP]",
+     "weight": 0.12654173374176025
+    },
+    {
+     "token": ".",
+     "weight": 0.10995779931545258
+    },
+    {
+     "token": "with",
+     "weight": 0.0687268003821373
+    },
+    {
+     "token": "large",
+     "weight": 0.04664160683751106
+    },
+    {
+     "token": "beak",
+     "weight": 0.04424404725432396
+    },
+    {
+     "token": "and",
+     "weight": 0.04234132543206215
+    }
+   ]
+  }
+ ],
+ "group_means": {
+  "color": 0.0568607896566391,
+  "body": 0.04275443032383919,
+  "other": 0.03443532437086105
+ }
+}

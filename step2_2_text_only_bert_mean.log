@@ -1,0 +1,66 @@
+========================================================================
+手册 2.2  Text-Only 训练    model=bert-base-uncased  tag=bert_mean
+========================================================================
+设备: cuda:0 (NVIDIA GeForce RTX 4060 Laptop GPU) 显存 8.0 GB
+HF_ENDPOINT = https://hf-mirror.com
+池化方式: mean   冻结 BERT: False   轮数: 10   batch: 16   lr: 2e-05
+
+分词演示："a small blue bird with a long beak"
+  token 序列: ['[CLS]', 'a', 'small', 'blue', 'bird', 'with', 'a', 'long', 'beak', '[SEP]']
+  token id   : [101, 1037, 2235, 2630, 4743, 2007, 1037, 2146, 23525, 102]
+  词表大小   : 30522
+
+样本数  train=3515  val=1177  test=1172
+注意：训练时每轮从该图的 10 条描述里随机取 1 条（文本增强），验证/测试固定取第 1 条。
+模型参数量: 总 109,559,140  可训练 109,559,140
+学习率: BERT 2.0e-05   分类头 1.0e-03   (OneCycle, 逐 step 调度)
+
+开始训练...
+Epoch [ 1/10]  train_loss=4.4952 train_acc=0.0270 | val_loss=3.8037 val_acc=0.1079 | 29.1s
+Epoch [ 2/10]  train_loss=3.4031 train_acc=0.1536 | val_loss=2.9768 val_acc=0.2319 | 29.8s
+Epoch [ 3/10]  train_loss=2.9324 train_acc=0.2299 | val_loss=2.7287 val_acc=0.2821 | 29.7s
+Epoch [ 4/10]  train_loss=2.7086 train_acc=0.2828 | val_loss=2.5419 val_acc=0.3263 | 29.9s
+Epoch [ 5/10]  train_loss=2.5602 train_acc=0.3183 | val_loss=2.3588 val_acc=0.3696 | 29.9s
+Epoch [ 6/10]  train_loss=2.3874 train_acc=0.3607 | val_loss=2.3043 val_acc=0.3857 | 30.0s
+Epoch [ 7/10]  train_loss=2.2878 train_acc=0.3852 | val_loss=2.2374 val_acc=0.3985 | 30.0s
+Epoch [ 8/10]  train_loss=2.2341 train_acc=0.3954 | val_loss=2.1988 val_acc=0.4061 | 30.2s
+Epoch [ 9/10]  train_loss=2.1441 train_acc=0.4242 | val_loss=2.1775 val_acc=0.4104 | 30.3s
+Epoch [10/10]  train_loss=2.1394 train_acc=0.4185 | val_loss=2.1759 val_acc=0.4121 | 30.2s
+
+最佳验证集准确率: 0.4121  (第 10 轮)
+
+------------------------------------------------------------------------
+测试集结果: acc=0.4198  P=0.4228  R=0.4204  F1=0.4062  (n=1172)
+Top-5 准确率: 0.7244
+------------------------------------------------------------------------
+
+最差的 10 个类别（说明「只靠文字」有多难）：
+| 类别 | 准确率 | 样本数 |
+|---|---|---|
+| 040.Olive_sided_Flycatcher | 0.000 | 12 |
+| 079.Belted_Kingfisher | 0.000 | 12 |
+| 059.California_Gull | 0.000 | 12 |
+| 062.Herring_Gull | 0.000 | 12 |
+| 086.Pacific_Loon | 0.083 | 12 |
+| 037.Acadian_Flycatcher | 0.083 | 12 |
+| 076.Dark_eyed_Junco | 0.083 | 12 |
+| 071.Long_tailed_Jaeger | 0.083 | 12 |
+| 032.Mangrove_Cuckoo | 0.100 | 10 |
+| 065.Slaty_backed_Gull | 0.100 | 10 |
+
+最容易混淆的类别对：
+| 真实类别 | 被预测为 | 次数 |
+|---|---|---|
+| 030.Fish_Crow | 029.American_Crow | 5 |
+| 083.White_breasted_Kingfisher | 054.Blue_Grosbeak | 4 |
+| 067.Anna_Hummingbird | 068.Ruby_throated_Hummingbird | 4 |
+| 066.Western_Gull | 059.California_Gull | 4 |
+| 062.Herring_Gull | 059.California_Gull | 4 |
+| 054.Blue_Grosbeak | 014.Indigo_Bunting | 4 |
+| 080.Green_Kingfisher | 081.Pied_Kingfisher | 3 |
+| 079.Belted_Kingfisher | 080.Green_Kingfisher | 3 |
+| 076.Dark_eyed_Junco | 027.Shiny_Cowbird | 3 |
+| 074.Florida_Jay | 014.Indigo_Bunting | 3 |
+已保存句向量: results/features/text_feats_bert_mean.npz
+
+总耗时 5.1 分钟

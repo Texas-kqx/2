@@ -1,0 +1,74 @@
+========================================================================
+手册 2.1  Image-Only 训练    backbone=resnet18  tag=resnet18
+========================================================================
+设备: cuda:0 (NVIDIA GeForce RTX 4060 Laptop GPU) 显存 8.0 GB
+预训练: True   冻结主干: False   训练轮数: 15   batch: 32   lr: 0.0001
+样本数  train=3515  val=1177  test=1172  类别数=100
+模型参数量: 总 11,227,812  可训练 11,227,812
+
+开始训练...
+Epoch [ 1/15]  train_loss=3.6005 train_acc=0.2780 | val_loss=2.4024 val_acc=0.5777 | 26.3s
+Epoch [ 2/15]  train_loss=1.9241 train_acc=0.6910 | val_loss=1.5791 val_acc=0.6771 | 26.2s
+Epoch [ 3/15]  train_loss=1.2138 train_acc=0.8043 | val_loss=1.3092 val_acc=0.7375 | 26.5s
+Epoch [ 4/15]  train_loss=0.8173 train_acc=0.8845 | val_loss=1.1406 val_acc=0.7485 | 29.9s
+Epoch [ 5/15]  train_loss=0.5565 train_acc=0.9337 | val_loss=1.0032 val_acc=0.7681 | 32.5s
+Epoch [ 6/15]  train_loss=0.4026 train_acc=0.9556 | val_loss=0.9561 val_acc=0.7782 | 32.7s
+Epoch [ 7/15]  train_loss=0.2901 train_acc=0.9744 | val_loss=0.9196 val_acc=0.7893 | 33.2s
+Epoch [ 8/15]  train_loss=0.2128 train_acc=0.9886 | val_loss=0.8790 val_acc=0.7740 | 32.8s
+Epoch [ 9/15]  train_loss=0.1639 train_acc=0.9940 | val_loss=0.8723 val_acc=0.7884 | 32.9s
+Epoch [10/15]  train_loss=0.1344 train_acc=0.9935 | val_loss=0.8553 val_acc=0.7842 | 32.8s
+Epoch [11/15]  train_loss=0.1161 train_acc=0.9977 | val_loss=0.8548 val_acc=0.7884 | 33.4s
+Epoch [12/15]  train_loss=0.0992 train_acc=0.9983 | val_loss=0.8472 val_acc=0.7867 | 33.8s
+Epoch [13/15]  train_loss=0.0903 train_acc=0.9997 | val_loss=0.8449 val_acc=0.7910 | 29.8s
+Epoch [14/15]  train_loss=0.0867 train_acc=0.9994 | val_loss=0.8396 val_acc=0.7893 | 28.4s
+Epoch [15/15]  train_loss=0.0855 train_acc=0.9989 | val_loss=0.8393 val_acc=0.7927 | 32.7s
+
+最佳验证集准确率: 0.7927  (第 15 轮)
+
+------------------------------------------------------------------------
+测试集结果: acc=0.7875  P=0.8034  R=0.7886  F1=0.7901  (n=1172)
+------------------------------------------------------------------------
+
+最差的 10 个类别（准确率）：
+| 类别 | 准确率 | 样本数 |
+|---|---|---|
+| 059.California_Gull | 0.167 | 12 |
+| 071.Long_tailed_Jaeger | 0.167 | 12 |
+| 062.Herring_Gull | 0.250 | 12 |
+| 072.Pomarine_Jaeger | 0.250 | 12 |
+| 009.Brewer_Blackbird | 0.333 | 12 |
+| 043.Yellow_bellied_Flycatcher | 0.417 | 12 |
+| 049.Boat_tailed_Grackle | 0.417 | 12 |
+| 044.Frigatebird | 0.500 | 12 |
+| 011.Rusty_Blackbird | 0.500 | 12 |
+| 039.Least_Flycatcher | 0.583 | 12 |
+
+最容易混淆的类别对：
+| 真实类别 | 被预测为 | 次数 |
+|---|---|---|
+| 071.Long_tailed_Jaeger | 072.Pomarine_Jaeger | 5 |
+| 072.Pomarine_Jaeger | 071.Long_tailed_Jaeger | 4 |
+| 059.California_Gull | 066.Western_Gull | 4 |
+| 050.Eared_Grebe | 051.Horned_Grebe | 4 |
+| 031.Black_billed_Cuckoo | 033.Yellow_billed_Cuckoo | 4 |
+| 059.California_Gull | 062.Herring_Gull | 3 |
+| 044.Frigatebird | 072.Pomarine_Jaeger | 3 |
+| 038.Great_Crested_Flycatcher | 039.Least_Flycatcher | 3 |
+| 037.Acadian_Flycatcher | 043.Yellow_bellied_Flycatcher | 3 |
+| 030.Fish_Crow | 029.American_Crow | 3 |
+
+已保存: results/step2_1_image_only_resnet18.json
+
+========================================================================
+把模型拆开：查看图像经过主干之后变成了什么
+========================================================================
+输入图像张量      : (32, 3, 224, 224)
+主干输出特征图    : (32, 512, 7, 7)   ← 224/32 = 7
+全局平均池化后    : (32, 512)   ← Early / Late / Gated 融合用
+展平成 token 序列 : (32, 49, 512)   ← Attention 融合用（每张图 49 个「视觉单词」）
+特征图统计        : mean=0.8792 std=1.3969 min=0.0000 max=16.4999
+已导出 1172 个图像特征到 results/features/image_feats_resnet18.npz
+同类样本平均余弦相似度  : 0.7668
+异类样本平均余弦相似度  : 0.4924
+
+总耗时 8.0 分钟

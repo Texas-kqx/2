@@ -1,0 +1,104 @@
+==============================================================================
+第 4 节 分析：融合方式的可解释性与逐类别影响   (tag=frozen)
+==============================================================================
+
+--- 六种配置总览 ---
+| 配置 | 参数量 | 测试准确率 | 宏F1 | Top-5 |
+|---|---|---|---|---|
+| 仅图像 | 157,028 | 0.7315 ± 0.0040 | 0.7341 | 0.9514 |
+| 仅文本 | 222,564 | 0.1658 ± 0.0026 | 0.1507 | 0.4215 |
+| ① 早融合 (Concat) | 969,828 | 0.7207 ± 0.0036 | 0.7201 | 0.9465 |
+| ② 晚融合 (Late) | 379,593 | 0.7290 ± 0.0028 | 0.7295 | 0.9150 |
+| ③ 跨模态注意力 (Cross-Attn) | 683,364 | 0.5028 ± 0.0074 | 0.5005 | 0.8510 |
+| ④ 门控融合 (Gated) | 616,804 | 0.7079 ± 0.0113 | 0.7084 | 0.9357 |
+
+相对「仅图像」的提升（按测试准确率）：
+| 配置 | Δ 准确率 |
+|---|---|
+| ② 晚融合 (Late) | -0.26 pp |
+| ① 早融合 (Concat) | -1.08 pp |
+| ④ 门控融合 (Gated) | -2.36 pp |
+| ③ 跨模态注意力 (Cross-Attn) | -22.87 pp |
+| 仅文本 | -56.57 pp |
+
+已保存 D:\deep seek\实验二\results\figures\step4_frozen_fusion_compare.png
+
+--- ④ 门控融合：逐样本门控值 a 的分布 ---
+  样本数 1172   均值 0.9842   标准差 0.0050
+  分位数 5/25/50/75/95: 0.975 / 0.981 / 0.985 / 0.988 / 0.991
+  解读：a 越接近 1 表示这个样本越依赖图像，越接近 0 越依赖文本。
+        分布越分散，说明门控确实在「逐样本」做决策，而不是退化成固定权重。
+  已保存 D:\deep seek\实验二\results\figures\step4_frozen_gate_distribution.png
+
+--- ③ 跨模态注意力：模型在看哪个词 ---
+  注意力张量形状 [N, heads, 49, L] = (1172, 4, 49, 64)
+
+  样本 0（真实类别: Black footed Albatross）
+    描述: "the bird has head and beak proportional to its body and the bird is brown in color."
+    被关注最多的词: . (0.225), brown (0.207), color (0.086), the (0.063), head (0.060), has (0.057)
+
+  样本 1（真实类别: Black footed Albatross）
+    描述: "the bird has a long black bill that is somewhat curved."
+    被关注最多的词: . (0.355), [SEP] (0.180), long (0.084), curved (0.082), black (0.053), bird (0.051)
+
+  样本 2（真实类别: Black footed Albatross）
+    描述: "the wings are brown, long and narrow, and have white markings on the secondaries, the bill is blunt tipped and black, the head is light brown with a white thin marking between the eye and the beak."
+    被关注最多的词: [SEP] (0.126), eye (0.091), bill (0.083), long (0.071), . (0.058), white (0.052)
+
+  样本 3（真实类别: Black footed Albatross）
+    描述: "here we have a bird soaring above the water and it's color is dark brown, he seems to have a long dark colored bill with a white ring around it on the upper part near the bill."
+    被关注最多的词: brown (0.240), . (0.155), [SEP] (0.116), color (0.049), water (0.042), we (0.033)
+
+  样本 4（真实类别: Black footed Albatross）
+    描述: "the bird is brown with a crooked black beak and a large wingspan."
+    被关注最多的词: brown (0.147), [SEP] (0.129), . (0.096), the (0.087), crooked (0.079), bird (0.077)
+
+  按词性分组的平均注意力（400 个样本统计）:
+    颜色词   (  949 个): 0.1227
+    身体部位词(  801 个): 0.0290
+    其他词   ( 5892 个): 0.0314
+  解读：颜色是 CUB 描述里最有区分度的属性之一，模型给的注意力权重
+        是否真的偏向这些词，是「跨模态对齐是否学到东西」的直接证据。
+  已保存 D:\deep seek\实验二\results\figures\step4_frozen_attention_words.png
+  已保存 D:\deep seek\实验二\results\figures\step4_frozen_attention_heatmap.png
+
+--- McNemar 配对检验：融合 vs 仅图像（同一份测试集）---
+  H0：两者错误率相同。|b-c| 越大越显著（p < 0.05 才敢说不同）
+  配置                                  b      c      chi2        p
+  仅文本                               696     31   606.459   0.0000   显著更差
+  ① 早融合 (Concat)                     67     54     1.190   0.2753   无显著差异
+  ② 晚融合 (Late)                       42     35     0.468   0.4941   无显著差异
+  ③ 跨模态注意力 (Cross-Attn)             331     64   179.129   0.0000   显著更差
+  ④ 门控融合 (Gated)                     79     55     3.948   0.0469   显著更差
+
+  注：b / c 是「两个模型判断不一致」的样本数。
+      准确率只差零点几个百分点时，b 和 c 往往只有几十个，
+      差异很容易落在噪声里 —— 这正是必须做配对检验的原因。
+
+--- 融合（late）相对「仅图像」帮助最大的 8 个类别 ---
+| 类别 | Δ 准确率 |
+|---|---|
+| Baltimore Oriole | +0.250 |
+| Long tailed Jaeger | +0.250 |
+| Chuck will Widow | +0.182 |
+| Rusty Blackbird | +0.167 |
+| Crested Auklet | +0.111 |
+| Red legged Kittiwake | +0.100 |
+| Red faced Cormorant | +0.091 |
+| Northern Fulmar | +0.083 |
+
+--- 反而变差的 8 个类别 ---
+| 类别 | Δ 准确率 |
+|---|---|
+| Mockingbird | -0.500 |
+| Glaucous winged Gull | -0.167 |
+| Brewer Blackbird | -0.167 |
+| Herring Gull | -0.167 |
+| Ring billed Gull | -0.167 |
+| Horned Grebe | -0.167 |
+| Great Crested Flycatcher | -0.167 |
+| Rhinoceros Auklet | -0.111 |
+
+平均变化 -0.0058（正=融合更好）
+
+分析完成。

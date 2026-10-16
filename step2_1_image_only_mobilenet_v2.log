@@ -1,0 +1,74 @@
+========================================================================
+手册 2.1  Image-Only 训练    backbone=mobilenet_v2  tag=mobilenet_v2
+========================================================================
+设备: cuda:0 (NVIDIA GeForce RTX 4060 Laptop GPU) 显存 8.0 GB
+预训练: True   冻结主干: False   训练轮数: 15   batch: 32   lr: 0.0001
+样本数  train=3515  val=1177  test=1172  类别数=100
+模型参数量: 总 2,351,972  可训练 2,351,972
+
+开始训练...
+Epoch [ 1/15]  train_loss=3.8955 train_acc=0.1875 | val_loss=2.8740 val_acc=0.4469 | 36.1s
+Epoch [ 2/15]  train_loss=2.3999 train_acc=0.5573 | val_loss=1.8600 val_acc=0.6406 | 35.9s
+Epoch [ 3/15]  train_loss=1.5866 train_acc=0.7084 | val_loss=1.3964 val_acc=0.7205 | 36.0s
+Epoch [ 4/15]  train_loss=1.1400 train_acc=0.7889 | val_loss=1.1732 val_acc=0.7375 | 36.1s
+Epoch [ 5/15]  train_loss=0.8689 train_acc=0.8432 | val_loss=1.0241 val_acc=0.7511 | 35.5s
+Epoch [ 6/15]  train_loss=0.6793 train_acc=0.8745 | val_loss=0.9225 val_acc=0.7664 | 35.6s
+Epoch [ 7/15]  train_loss=0.5417 train_acc=0.9127 | val_loss=0.8719 val_acc=0.7791 | 35.4s
+Epoch [ 8/15]  train_loss=0.4430 train_acc=0.9300 | val_loss=0.8344 val_acc=0.7774 | 35.4s
+Epoch [ 9/15]  train_loss=0.3695 train_acc=0.9434 | val_loss=0.8094 val_acc=0.7918 | 35.3s
+Epoch [10/15]  train_loss=0.3229 train_acc=0.9528 | val_loss=0.7938 val_acc=0.7927 | 33.6s
+Epoch [11/15]  train_loss=0.2830 train_acc=0.9698 | val_loss=0.7826 val_acc=0.7944 | 35.2s
+Epoch [12/15]  train_loss=0.2565 train_acc=0.9710 | val_loss=0.7797 val_acc=0.7935 | 35.4s
+Epoch [13/15]  train_loss=0.2416 train_acc=0.9744 | val_loss=0.7809 val_acc=0.7893 | 35.3s
+Epoch [14/15]  train_loss=0.2292 train_acc=0.9764 | val_loss=0.7772 val_acc=0.7893 | 35.3s
+Epoch [15/15]  train_loss=0.2302 train_acc=0.9764 | val_loss=0.7741 val_acc=0.7918 | 35.2s
+
+最佳验证集准确率: 0.7944  (第 11 轮)
+
+------------------------------------------------------------------------
+测试集结果: acc=0.7850  P=0.7931  R=0.7862  F1=0.7835  (n=1172)
+------------------------------------------------------------------------
+
+最差的 10 个类别（准确率）：
+| 类别 | 准确率 | 样本数 |
+|---|---|---|
+| 062.Herring_Gull | 0.000 | 12 |
+| 071.Long_tailed_Jaeger | 0.167 | 12 |
+| 059.California_Gull | 0.250 | 12 |
+| 065.Slaty_backed_Gull | 0.400 | 10 |
+| 044.Frigatebird | 0.417 | 12 |
+| 039.Least_Flycatcher | 0.417 | 12 |
+| 037.Acadian_Flycatcher | 0.500 | 12 |
+| 030.Fish_Crow | 0.500 | 12 |
+| 029.American_Crow | 0.500 | 12 |
+| 027.Shiny_Cowbird | 0.500 | 12 |
+
+最容易混淆的类别对：
+| 真实类别 | 被预测为 | 次数 |
+|---|---|---|
+| 062.Herring_Gull | 060.Glaucous_winged_Gull | 6 |
+| 071.Long_tailed_Jaeger | 072.Pomarine_Jaeger | 5 |
+| 059.California_Gull | 066.Western_Gull | 4 |
+| 031.Black_billed_Cuckoo | 033.Yellow_billed_Cuckoo | 4 |
+| 080.Green_Kingfisher | 079.Belted_Kingfisher | 3 |
+| 072.Pomarine_Jaeger | 071.Long_tailed_Jaeger | 3 |
+| 068.Ruby_throated_Hummingbird | 067.Anna_Hummingbird | 3 |
+| 062.Herring_Gull | 064.Ring_billed_Gull | 3 |
+| 051.Horned_Grebe | 050.Eared_Grebe | 3 |
+| 050.Eared_Grebe | 051.Horned_Grebe | 3 |
+
+已保存: results/step2_1_image_only_mobilenet_v2.json
+
+========================================================================
+把模型拆开：查看图像经过主干之后变成了什么
+========================================================================
+输入图像张量      : (32, 3, 224, 224)
+主干输出特征图    : (32, 1280, 7, 7)   ← 224/32 = 7
+全局平均池化后    : (32, 1280)   ← Early / Late / Gated 融合用
+展平成 token 序列 : (32, 49, 1280)   ← Attention 融合用（每张图 49 个「视觉单词」）
+特征图统计        : mean=0.5280 std=0.9700 min=0.0000 max=6.0000
+已导出 1172 个图像特征到 results/features/image_feats_mobilenet_v2.npz
+同类样本平均余弦相似度  : 0.7452
+异类样本平均余弦相似度  : 0.4223
+
+总耗时 9.1 分钟

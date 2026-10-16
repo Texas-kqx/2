@@ -1,0 +1,24 @@
+# ---- 虚拟环境与依赖（体积大，不入库）----
+.venv3/
+.venv/
+.wheels/
+__pycache__/
+*.pyc
+.tmp/
+
+# ---- 预训练权重 / 模型缓存（体积大，自动重新下载）----
+.torch_cache/
+.hf_cache/
+
+# ---- 训练产物中的大文件（权重与特征缓存，可重跑生成）----
+results/*.pth
+results/features/*.npz
+results/step4_fusion_details_*.npz
+results/step5_clip_details.npz
+
+# ---- 编辑器 / 系统 ----
+.vscode/
+.idea/
+Thumbs.db
+Desktop.ini
+*~
